@@ -1,7 +1,18 @@
 html, body {
-  margin: 0;
-  padding: 0;
+  height: 100vh;
+  width: 100vw;
 }
+
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 0fr 1fr;
+  grid-template-rows: 1fr 0fr 1fr;
+}
+
 canvas {
-  display: block;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
 }
