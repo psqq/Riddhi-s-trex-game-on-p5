@@ -103,9 +103,15 @@ function draw() {
 
   else if (Gamestate === END) {
     ground.velocityX = 0;
-    trex.changeAnimation("collided", trex_collided);
+    trex.changeAnimation("collided");
     obstaclesGroup.setVelocityXEach(0);
     cloudsGroup.setVelocityXEach(0);
+    for(let obstacle of obstaclesGroup) {
+      obstacle.lifetime = 300;
+    }
+    for(let cloud of cloudsGroup) {
+      cloud.lifetime = 300;
+    }
   }
 
   text("Score: " + score, 500, 50);
