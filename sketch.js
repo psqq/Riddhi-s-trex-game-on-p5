@@ -17,6 +17,8 @@ var Gamestate = PLAY;
 
 var restartButton;
 
+var can;
+
 function preload() {
   trex_running = loadAnimation("./images/trex1.png", "./images/trex3.png", "./images/trex4.png");
   trex_collided = loadAnimation("./images/trex_collided.png");
@@ -33,6 +35,9 @@ function preload() {
   obstacle6 = loadImage("./images/obstacle6.png");
 
   restartButton = createImg("./images/restart.png");
+  restartButton.elt.width = 32;
+  restartButton.elt.height = 32;
+  restartButton.addClass("button");
 }
 
 function startNewGame() {
@@ -45,7 +50,7 @@ function startNewGame() {
 }
 
 function setup() {
-  createCanvas(600, 200);
+  can = createCanvas(600, 200);
 
   trex = createSprite(50, 180, 20, 50);
   trex.addAnimation("running", trex_running);
@@ -66,8 +71,12 @@ function setup() {
 
   score = 0;
 
-  restartButton.position(19, 19);
+  restartButton.position(can.elt.width + can.elt.offsetLeft - restartButton.elt.width, can.elt.offsetTop);
   restartButton.mousePressed(startNewGame);
+}
+
+function windowResized() {
+  restartButton.position(can.elt.width + can.elt.offsetLeft - restartButton.elt.width, can.elt.offsetTop);
 }
 
 function draw() {
@@ -106,10 +115,10 @@ function draw() {
     trex.changeAnimation("collided");
     obstaclesGroup.setVelocityXEach(0);
     cloudsGroup.setVelocityXEach(0);
-    for(let obstacle of obstaclesGroup) {
+    for (let obstacle of obstaclesGroup) {
       obstacle.lifetime = 300;
     }
-    for(let cloud of cloudsGroup) {
+    for (let cloud of cloudsGroup) {
       cloud.lifetime = 300;
     }
   }
