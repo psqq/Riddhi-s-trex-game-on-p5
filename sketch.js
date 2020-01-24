@@ -96,7 +96,7 @@ function draw() {
     }
     score = score + Math.round(getFrameRate() / 60);
 
-    trex.velocityY = trex.velocityY + 0.8
+    trex.velocityY = trex.velocityY + 0.8;
 
     if (ground.x < 0) {
       ground.x = ground.width / 2;
@@ -112,6 +112,7 @@ function draw() {
 
   else if (Gamestate === END) {
     ground.velocityX = 0;
+    trex.velocityY = trex.velocityY + 0.8;
     trex.changeAnimation("collided");
     obstaclesGroup.setVelocityXEach(0);
     cloudsGroup.setVelocityXEach(0);
