@@ -132,15 +132,15 @@ function draw() {
 
 function spawnClouds() {
   //write code here to spawn the clouds
-  if (frameCount % 60 === 0) {
+  if ((frameCount - 10) % 45 === 0) {
     var cloud = createSprite(600, 120, 40, 10);
     cloud.y = Math.round(random(80, 120));
     cloud.addImage(cloudImage);
     cloud.scale = 0.5;
-    cloud.velocityX = -3;
+    cloud.velocityX = -random(2.9, 3.1);
 
     //assign lifetime to the variable
-    cloud.lifetime = 200;
+    cloud.lifetime = 300;
 
     //adjust the depth
     cloud.depth = trex.depth;
@@ -153,7 +153,7 @@ function spawnClouds() {
 }
 
 function spawnObstacles() {
-  if (frameCount % 60 === 0) {
+  if ((frameCount - 10) % 60 === 0) {
     var obstacle = createSprite(600, 165, 10, 40);
     obstacle.velocityX = -4;
 
