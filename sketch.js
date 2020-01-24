@@ -7,6 +7,7 @@ var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obsta
 var score;
 
 var isFalling = false;
+var maxJumpYPosition = 50;
 var eps = 1e-3;
 
 var PLAY = 1;
@@ -61,11 +62,14 @@ function draw() {
 
     if (keyDown("space") && !isFalling) {
       trex.velocityY = -10;
+      if (trex.position.y < maxJumpYPosition) {
+        isFalling = true;
+      }
     } else if (!isFalling && !trex.isTouching(ground)) {
       isFalling = true;
     } else if (isFalling && trex.isTouching(ground)) {
       isFalling = false;
-    }
+    }    
     score = score + Math.round(getFrameRate() / 60);
 
     trex.velocityY = trex.velocityY + 0.8
