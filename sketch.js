@@ -84,6 +84,7 @@ function windowResized() {
 function draw() {
   background(180);
 
+  // PLAY STATE
   if (Gamestate === PLAY) {
 
     if (keyDown("space") && !isFalling) {
@@ -101,8 +102,6 @@ function draw() {
       highScore = score;
     }
 
-    trex.velocityY = trex.velocityY + 0.8;
-
     if (ground.x < 0) {
       ground.x = ground.width / 2;
     }
@@ -115,10 +114,9 @@ function draw() {
       localStorage.setItem("high-score", highScore);
     }
   }
-
+  // GAME OVER STATE
   else if (Gamestate === END) {
     ground.velocityX = 0;
-    trex.velocityY = trex.velocityY + 0.8;
     trex.changeAnimation("collided");
     obstaclesGroup.setVelocityXEach(0);
     cloudsGroup.setVelocityXEach(0);
@@ -130,8 +128,10 @@ function draw() {
     }
   }
 
+  // COMMON CODE
   text("Score: " + score, 500, 50);
   text("High score: " + highScore, 500, 70);
+  trex.velocityY = trex.velocityY + 0.8;
   trex.collide(invisibleGround);
 
   drawSprites();
