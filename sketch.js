@@ -4,7 +4,7 @@ var ground, invisibleGround, groundImage;
 var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
 
-var score;
+var score, highScore;
 
 var isFalling = false;
 var maxJumpYPosition = 50;
@@ -71,6 +71,8 @@ function setup() {
 
   score = 0;
 
+  highScore = localStorage.getItem("high-score") || 0;
+
   restartButton.position(can.elt.width + can.elt.offsetLeft - restartButton.elt.width, can.elt.offsetTop);
   restartButton.mousePressed(startNewGame);
 }
@@ -95,6 +97,9 @@ function draw() {
       isFalling = false;
     }
     score = score + Math.round(getFrameRate() / 60);
+    if (score > highScore) {
+      highScore = score;
+    }
 
     trex.velocityY = trex.velocityY + 0.8;
 
@@ -107,6 +112,7 @@ function draw() {
 
     if (trex.isTouching(obstaclesGroup)) {
       Gamestate = END;
+      localStorage.setItem("high-score", highScore);
     }
   }
 
@@ -125,6 +131,7 @@ function draw() {
   }
 
   text("Score: " + score, 500, 50);
+  text("High score: " + highScore, 500, 70);
   trex.collide(invisibleGround);
 
   drawSprites();
