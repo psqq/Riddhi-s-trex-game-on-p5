@@ -15,6 +15,8 @@ var END = 0;
 
 var Gamestate = PLAY;
 
+var restartButton;
+
 function preload() {
   trex_running = loadAnimation("./images/trex1.png", "./images/trex3.png", "./images/trex4.png");
   trex_collided = loadAnimation("./images/trex_collided.png");
@@ -29,6 +31,17 @@ function preload() {
   obstacle4 = loadImage("./images/obstacle4.png");
   obstacle5 = loadImage("./images/obstacle5.png");
   obstacle6 = loadImage("./images/obstacle6.png");
+
+  restartButton = createImg("./images/restart.png");
+}
+
+function startNewGame() {
+  score = 0;
+  ground.velocityX = -4;
+  trex.changeAnimation("running");
+  obstaclesGroup.removeSprites();
+  cloudsGroup.removeSprites();
+  Gamestate = PLAY;
 }
 
 function setup() {
@@ -39,7 +52,6 @@ function setup() {
   trex.scale = 0.5;
 
   trex.addAnimation("collided", trex_collided);
-
 
   ground = createSprite(200, 180, 400, 20);
   ground.addImage("ground", groundImage);
@@ -53,6 +65,9 @@ function setup() {
   obstaclesGroup = new Group();
 
   score = 0;
+
+  restartButton.position(19, 19);
+  restartButton.mousePressed(startNewGame);
 }
 
 function draw() {
@@ -69,7 +84,7 @@ function draw() {
       isFalling = true;
     } else if (isFalling && trex.isTouching(ground)) {
       isFalling = false;
-    }    
+    }
     score = score + Math.round(getFrameRate() / 60);
 
     trex.velocityY = trex.velocityY + 0.8
@@ -91,9 +106,7 @@ function draw() {
     trex.changeAnimation("collided", trex_collided);
     obstaclesGroup.setVelocityXEach(0);
     cloudsGroup.setVelocityXEach(0);
-
   }
-
 
   text("Score: " + score, 500, 50);
   trex.collide(invisibleGround);
